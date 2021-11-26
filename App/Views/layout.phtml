@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/img/favicon.ico" type="image/ico" />
+
+    <title>App | Controller </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/styles.css" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+
+    <!-- style tables CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/tables.css">
+
+    <!-- Data Table JS
+        ============================================ -->
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+
+    <!-- Font Awesome
+        ============================================ -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Icon pe-icon
+		============================================ -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        body{
+            font-family: "Muli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.91) 0%, rgb(249 239 242 / 76%) 100%), url(img/background/fundo.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment:fixed;
+            background-size: cover;
+        }
+
+        body {
+            align-items: center;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 30px;
+            padding-bottom: 40px;
+        }
+
+
+        body::after{
+            content: '';
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(img/svg/15.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: bottom;
+            z-index: -1;
+        }
+
+        .social-icons .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 3.5rem;
+            width: 3.5rem;
+            color: rgb(103, 105, 121);
+            border-radius: 100%;
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+        }
+        .social-icons .social-icon:last-child {
+            margin-right: 0;
+        }
+        .social-icons .social-icon:hover {
+            background-color: rgba(139, 210, 210, 0.88);
+            color: white !important;
+        }
+    </style>
+    </hrad>
+
+
+<body>
+    <?= $this->content() ?>
+</body>
+
+</html>

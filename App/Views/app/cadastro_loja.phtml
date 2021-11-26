@@ -1,0 +1,86 @@
+<ol class="breadcrumb mb-2 mt-2">
+    <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/lojas">Lojas</a></li>
+    <li class="breadcrumb-item active">Cadastro Loja</li>
+</ol>
+
+
+<div class="card mb-2 shadow">
+    <div class="card-header">
+        <h6>Cadastro Loja</h6>
+    </div>
+    <div class="card-body bg-white">
+        <form method="post" action="/cad_loja" class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    <label for="validationCustom01">Razão Social</label>
+                    <input name="nome_loja" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm" required>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom03">CNPJ</label>
+                    <input name="cnpj" value="" type="cnpj" class="form-control form-control-sm rounded-pill shadow-sm" required>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Local</label>
+                    <input name="local" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm">
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom04">Sequência Loja</label>
+                    <input name="sequencia" value="" type="number" class="form-control form-control-sm rounded-pill shadow-sm" required>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label class="form-check-label" for="invalidCheck">CEP</label>
+                        <input name="cep" value="" type=" number" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="CEP" onblur="getDadosEnderecoPorCEP(this.value)" required />
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="form-check-label" for="invalidCheck">Logradouro</label>
+                        <input name="rua" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Logradouro" id="endereco" required />
+                    </div>
+                    <div class="col-sm-5">
+                        <label class="form-check-label" for="invalidCheck">Referência</label>
+                        <input name="referencia" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Referecia" id="endereco" />
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="form-check-label" for="invalidCheck">Nº</label>
+                        <input name="numero" value="" type=" number" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Nº 99999" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label class="form-check-label" for="invalidCheck">Bairro</label>
+                        <input name="bairro" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Bairro" id="bairro" required />
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="form-check-label" for="invalidCheck">Cidade</label>
+                        <input name="cidade" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Cidade" id="cidade" />
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label class="form-check-label" for="invalidCheck">Estado</label>
+                        <input name="uf" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="UF" id="uf" />
+                    </div>
+                </div>
+            </div>
+            <a href="/lojas" type="button" class="btn btn-sm  btn-secondary rounded-pill shadow-sm m-1 float-right">Voltar</a>
+            <button type="submit" class="btn btn-sm btn-success rounded-pill shadow-sm m-1 float-right">Salvar</button>
+        </form>
+    </div>
+</div>

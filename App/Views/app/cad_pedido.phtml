@@ -1,0 +1,237 @@
+<!-- page content -->
+
+<ol class="breadcrumb mb-2 mt-2">
+    <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/listar_pedidos">Pedidos</a></li>
+    <li class="breadcrumb-item active">Novo Pedido</li>
+</ol>
+
+<div class="shadow p-3 bg-white rounded mb-2">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Novo pedido</h3>
+        </div>
+        <button class="btn btn-sm btn-outline-primary shadow" data-toggle="modal" data-target="#modal_pesquisar_cliente">
+            <i class="fa fa-user" data-toggle="tooltip" data-placement="top" title="Pesquisa Cliente por Nome"> </i> Pesquisar Cliente</button>
+    </div>
+
+    <div class="card shadow p-3 bg-white">
+        <div class="row">
+            <div class="col-sm-12">
+                <form id="form_cliente">
+                    <div class="mt-1">
+                        <div class="">
+                            <div class="form-row">
+                                <div class="col-md-3 col-sm-3 mb-1">
+                                    <label for="invalidCheck">CPF</label>
+                                    <div class="input-group">
+                                        <input class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' type="text" id="cpf" placeholder="Digite o CPF do Cliente" aria-label="Search" aria-describedby="basic-addon2" />
+                                        <input id="id_cliente" name="" value="" type="text" class="form-control" data-name='cliente' oninput="getPed()" hidden>
+                                        <input id=" cpf_cliente" name="cpf_cliente" value="" type="hidden" data-name='cliente' class="form-control">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-sm rounded-pill border-right-01" type="button" data-toggle="tooltip" data-placement="top" title="Entrar com CPF Cliente" onclick="getCpf()"><i class="ti-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-sm-7 mb-1">
+                                    <label for="invalidCheck">Nome</label>
+                                    <input id="nome" name="nome" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly>
+                                    <div class="valid-feedback">
+                                        Tudo certo!
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-2 mb-1">
+                                    <label for="invalidCheck">Loja</label>
+                                    <input id="loja" name="loja" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly>
+                                    <input id="id_loja" name="id_loja" value="" type="text" class="form-control form-control-sm" data-name='cliente' readonly oninput="getPed()" hidden>
+                                    <div class="valid-feedback">
+                                        Tudo certo!
+                                    </div>
+                                </div>
+                            </div>
+                            <h6>Endereço</h6>
+                            <div class="form-row">
+                                <div class="col-sm-2">
+                                    <label class="form-check-label" for="invalidCheck">CEP</label>
+                                    <input id="cep" name="" value="" type=" number" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly required />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="form-check-label" for="invalidCheck">Logradouro</label>
+                                    <input id="rua" name="" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly required />
+                                </div>
+                                <div class="col-sm-5">
+                                    <label class="form-check-label" for="invalidCheck">Referência</label>
+                                    <input id="referencia" name="" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly required />
+                                </div>
+                                <div class="col-sm-1">
+                                    <label class="form-check-label" for="invalidCheck">Nº</label>
+                                    <input id="numero" name="" value="" type=" number" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly required />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-6">
+                                    <label class="form-check-label" for="invalidCheck">Bairro</label>
+                                    <input id="bairro" name="" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly required />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="form-check-label" for="invalidCheck">Cidade</label>
+                                    <input id="cidade" name="" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly required />
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label class="form-check-label" for="invalidCheck">Estado</label>
+                                    <input id="uf" name="" value="" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" data-name='cliente' readonly required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div id="button_inserir" class="m-3 float-right" style="display: none;"> -->
+                    <div id="button_inserir" class="m-3 float-right">
+                        <!-- <input class="btn btn-sm btn-blue shadow rounded-pill" type="button" onclick="getPed(), mostrar_lista()" value="Iniciar Pedido" /> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr />
+        <!-- ====================================================================================================================== -->
+        <div id="inserir_produtos" style="display: none;">
+
+            <button class="btn btn-sm btn-outline-primary shadow" data-toggle="modal" data-target="#modal_pesquisar_produro">
+                <i class="ti-shopping-cart-full" data-toggle="tooltip" data-placement="top" title="Pesquisa Produto por Descrição"> </i> Pesquisar Produto</button>
+
+            <form id="form_prod" action="inserir_produto">
+
+                <div class="row form-group col-md-2 col-sm-2 float-right">
+                    <label class="form-check-label">Nº Pedido</label>
+                    <input name="numero_pedido" id="numero_ped" type="text" class="form-control form-control-sm rounded-pill shadow-sm" readonly required>
+                </div>
+                <h4 class="m-4"><i class="fa fa-shopping-cart"></i> Adicionar Produto</h4>
+                <div class="col-md-3 col-sm-3 mb-1">
+                    <label for="invalidCheck">Buscar Produto</label>
+                    <div class="input-group">
+                        <input name="codigo" id="codigo" data-name="entrada" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Digite o Código...">
+                        <div class="input-group-append">
+                            <button class="btn btn-sm rounded-pill border-right-01" type="button" data-toggle="tooltip" data-placement="top" title="Entrar com Código do Produto" onclick="getCodigo()"><i class="ti-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group container-fluid">
+                    <table id="tabela" class="table table-sm table-responsive-sm">
+                        <thead class="text-info">
+                            <tr>
+                                <th>Códido do Produto</th>
+                                <th>Descrição do Produto</th>
+                                <th>Valor UN</th>
+                                <th>Qtd.</th>
+                                <th>Total R$</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <input name="codigo_prod" id="codigo_produt" data-name="entrada" value="" type="number" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Código" readonly required>
+                                </th>
+                                <th>
+                                    <input name="descricao_prod" id="descricao_produto" data-name="entrada" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Descrição do Produto" readonly required>
+                                </th>
+                                <th>
+                                    <input name="valor_prod" id="valor_produto" data-name="entrada" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="R$" readonly required>
+                                </th>
+                                <th>
+                                    <input name="qtd_prod" id="qtd" data-name="entrada" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Digite a Quantidade" required>
+                                </th>
+                                <th>
+                                    <input name="valor_total_prod" id="valor_total" data-name="entrada" value="" type="text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="R$" readonly required>
+                                </th>
+                                <th id="inserir_produto">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+            </form>
+
+            <div class="row p-1 m-1 rounded shadow-sm">
+                <table id="list_prod" class="table table-sm table-responsive-sm">
+
+                </table>
+            </div>
+
+            <form id="salv_canc" method="post">
+                <h4 class="m-4"><i class="fa fa-shopping-cart"></i> Lista de Compras</h4>
+                <textarea id="editor" class="form-control textarea" name="detalhe_pedido" placeholder="Entre com texto..."></textarea>
+                <input name="numero_pedido" id="num_ped" value="" type="text" class="form-control form-control-sm" oninput="gravaProduto(this.value)" readonly required hidden>
+
+                <div class="row col-4 float-right">
+                    <button type='submit' id="cancelar" class="btn btn-sm btn-danger m-1 shadow-sm rounded-pill" data-toggle="tooltip" data-placement="top" title="Cancelar Pedido"><i class="ti-trash"></i> Cancelar</button>
+                    <button type='submit' id="salvar" class="btn btn-sm btn-success  m-1 shadow-sm rounded-pill"><i class="ti-check" data-toggle="tooltip" data-placement="top" title="Salvar Pedido"></i> Gravar Pedido</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!-- ====================================================================================================================== -->
+
+
+<!-- Pesquisar Cliente -->
+<div class="modal fade" id="modal_pesquisar_cliente" tabindex="-1" aria-labelledby="modal_pesquisar_cliente" aria-hidden="true">
+    <div class="modal-dialog modal-xl modals-default">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-info" id="modal_pesquisar_cliente"> Pesquisar Cliente</h5>
+                <p class=" text-info glyphicon glyphicon-pencil ml-5">Após a busca click no CPF desejado!</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="data-table-area mt-3">
+                    <input type="text" name="buscar_cliente" id="buscar_cliente" placeholder="Pesquisar Cliente por Nome..." class="form-control form-control-sm rounded-pill shadow-sm" />
+                    <div class="data-table-list bg-light rounded">
+                        <div class="table-responsive">
+                            <div id="resultado">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer mt-3">
+                <button type="button" class="btn btn-sm btn-secondary shadow-sm rounded-pill" data-dismiss="modal"><i class=" ti-check"></i> Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Pesquisar produtos -->
+<div class="modal fade" id="modal_pesquisar_produro" tabindex="-1" aria-labelledby="modal_pesquisar_produro" aria-hidden="true">
+    <div class="modal-dialog modal-xl modals-default">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-info" id="modal_pesquisar_produro"> Pesquisar Produto</h5>
+                <p class=" text-info glyphicon glyphicon-pencil ml-5">Após a busca click no Código do produto!</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="data-table-area mt-3">
+                    <input type="text" name="buscar_produto_desc" id="buscar_produto_desc" placeholder="Pesquisar Cliente por Nome..." class="form-control form-control-sm rounded-pill shadow-sm" />
+                    <div class="data-table-list bg-light rounded">
+                        <div class="table-responsive">
+                            <div id="resultado_prod">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer mt-3">
+                <button type="button" class="btn btn-sm btn-secondary shadow-sm rounded-pill" data-dismiss="modal"><i class=" ti-check"></i> Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

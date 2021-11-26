@@ -1,0 +1,65 @@
+    <ol class="breadcrumb mb-2 mt-2">
+        <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+        <li class="breadcrumb-item active">Usuários</li>
+    </ol>
+
+    <div class="card shadow">
+        <div class="card-header">
+            <h6>Usuários</h6>
+        </div>
+        <div class="card-body">
+            <div class="data-table-area shadow-sm">
+                <div class="data-table-list bg-light rounded">
+                    <div class="table-responsive">
+                        <a href="/cadastro_user" class="m-2 btn btn-sm btn-success shadow-sm rounded-pill float-lg-right"><i class=" fa fa-plus-circle"></i> Novo Usuário</a>
+                        <table class="bg-light table table-sm table-responsive-sm table-hover roundedr" id="data-table-basic">
+                            <thead class="">
+                                <tr class="">
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Login</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">Tipo Usuáro</th>
+                                    <th scope="col">Loja</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                <?php foreach ($this->view->usuarios as $key => $value) { ?>
+
+                                    <tr>
+                                        <td><?php echo $value['nome'] ?></td>
+                                        <td><?php echo $value['login'] ?></td>
+                                        <td><?php echo $value['email'] ?></td>
+                                        <td><?php echo $value['descricao'] ?></td>
+                                        <td><?php echo $value['loja'] ?></td>
+                                        <td>
+                                            <a href="/perfil_usuario?id=<?php echo $value['id'] ?>" class=" btn btn-blue btn-sm shadow-sm rounded-pill "> Ver Perfil</a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // $(document).ready(function() {
+        //     $('#data_table').DataTable({
+        //         dom: 'Bfrtip',
+        //         lengthMenu: [
+        //             [5, 10, 25, 50, 100, -1],
+        //             ['5', '10', '25', '50 ', '100', 'Show all']
+        //         ],
+        //         buttons: [
+        //             'pageLength',
+        //             'copyHtml5',
+        //             'excelHtml5',
+        //             'pdfHtml5'
+        //         ]
+        //     });
+        // });
+    </script>

@@ -1,0 +1,362 @@
+<?php foreach ($this->view->detalhePedido as $key => $value) { ?>
+
+    <ol class="breadcrumb mb-2 mt-2">
+        <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="/listar_pedidos">Pedidos</a></li>
+        <li class="breadcrumb-item active">Detalhe Pedido Nº <?php echo $value['numero_pedido'] ?></li>
+    </ol>
+
+    <div class="card shadow-sm p-1 m-2 bg-white">
+        <section class="content">
+            <!-- title row -->
+            <div class="row col-md-11 col-sm-11">
+                <div class="col-md-12 col-sm-12">
+                    <h2 class="mt-5" style="float: left;"> Delivery - Pedido Nº <?php echo $value['numero_pedido'] ?></h2>
+                    <img class=" pull-right m-2" src="/img/logo.png" alt="" style="width: 160px; right: 160px; float: right;">
+                </div>
+                <!-- /.col -->
+            </div>
+
+            <hr />
+            <!-- info row -->
+            <div class="row col-md-12 col-sm-12">
+                <div class="col-md-4 col-sm-4 ">
+                    <strong>
+                        <h6><b>Dados do Cliente:</b></h6>
+                    </strong>
+                    <address>
+                        <strong>
+                            <h6><b>Nome: </b><?php echo $value['nome'] ?></h6>
+                        </strong>
+                        <b>CPF: </b><?php echo $value['cpf'] ?>
+                        <hr />
+                        <h6><b>Endereço: </b></h6>
+                        <h6><?php echo $value['rua'] ?>, <?php echo $value['numero'] ?></h6>
+                        <h6><?php echo $value['bairro'] ?>, <?php echo $value['cidade'] ?> - <?php echo $value['uf'] ?></h6>
+                        <h6>Referência: <?php echo $value['referencia'] ?></h6>
+                        <hr />
+                        <h6><b>Contato: </b></h6>
+                        <h6><b class="fa fa-phone"> Telefone: </b> <?php echo $value['telefone'] ?></h6>
+                        <h6><b class="fa fa-envelope"> E-mail: </b> <?php echo $value['email'] ?></h6>
+                        <hr />
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4 col-sm-4">
+                    <h6><i class="fa fa-shopping-cart"></i> Loja:</h6>
+                    <address>
+                        <h6><?php echo $value['nome_loja'] ?></h6>
+                        <h6><b>CNPJ: </b> <?php echo $value['cnpj'] ?></h6>
+                        <h6><?php echo $value['local'] ?></h6>
+                    </address>
+                    <?php if ($value['descricao'] != 'REALIZADO') { ?>
+                        <button class="btn btn-sm btn-blue shadow-sm rounded-pill" data-toggle="modal" data-target="#atualizar_loja">Alterar Loja</button>
+                    <?php } ?>
+                    <hr />
+                    <div class="float-left ml-2">
+                        <img src="/pedidos/qrcode/<?php echo $_GET['numero_pedido'] ?>.png" style="width: 200px; right: 200px; float: right;">
+                    </div>
+                </div>
+
+                <!-- /.col -->
+                <div class="col-md-4 col-sm-4">
+                    <h6><b>Data Pedido: </b><?php echo $value['data_criacao'] ?> <?php if ($value['descricao'] != 'REALIZADO') { ?>
+                            <button class="btn btn-sm btn-blue shadow-sm rounded-pill" data-toggle="modal" data-target="#alterar_data">Alterar Data</button>
+                        <?php } ?>
+                    </h6>
+
+                    <h6><b>Nº do Pedido: </b><?php echo $value['numero_pedido'] ?></h6>
+
+                    <h6><b>Valor Total:</b><b class="text-success"> R$
+                            <?php
+                            $valor = str_replace(".", ",",  $value['valor']);
+                            if (strlen($valor) < 7) {
+                                echo $valor;
+                            } else if (strlen($valor) <= 9) {
+                                echo substr_replace($valor, '.', -6, 0);
+                            } else if (strlen($valor) > 9) {
+                                $val = substr_replace($valor, '.', -6, 0);
+                                echo substr_replace($val, '.', -10, 0);
+                            }
+                            ?>
+                        </b>
+                    </h6>
+                    <h6>Forma de Pagamento: <b class="text-success">
+                            <?php
+                            if ($value['forma_pagamento'] != '0') {
+                                echo $value['descricao_forma_pagamento'];
+                            }
+                            ?></b>
+
+                    </h6>
+
+                    <?php if ($value['descricao'] != 'REALIZADO') { ?>
+                        <button class="btn btn-sm btn-blue shadow-sm rounded-pill" data-toggle="modal" data-target="#atualizar">Atualizar Valor</button>
+                        <button class="btn btn-sm btn-success shadow-sm rounded-pill" data-toggle="modal" data-target="#forma_pagamento">Add. Fomra Pagamento</button>
+                    <?php } ?>
+                    <hr>
+                    <?php if ($value['descricao'] == 'REALIZADO') { ?>
+                        <h6>Status: </h6><b class="text-info"><?php echo $value['descricao'] ?></b>
+                    <?php } else if ($value['descricao'] == 'NOVO') { ?>
+                        <h6>Status: </h6><b class="text-success"><?php echo $value['descricao'] ?></b>
+                    <?php } elseif ($value['descricao'] == 'EM PROCESSAMENTO') { ?>
+                        <h6>Status: </h6><b class="text-warning"><?php echo $value['descricao'] ?></b>
+                    <?php } ?>
+                    <?php if ($value['descricao'] == 'NOVO' || $value['descricao'] == 'EM PROCESSAMENTO') { ?>
+                        <form action="status" method="get">
+                            <div class="custom-control custom-switch">
+                                <input name="status" value="2" type="checkbox" class="custom-control-input" id="customSwitch1" onClick="submit();">
+                                <input name="numero_pedido" value="<?php echo $_GET['numero_pedido'] ?>" type="text" class="custom-control-input">
+                                <label class="custom-control-label" for="customSwitch1">Marcar Realizado</label>
+                            </div>
+                        </form>
+                    <?php } ?>
+                    <?php if ($value['descricao'] == 'NOVO' || $value['descricao'] == 'REALIZADO') { ?>
+
+                        <form action="status" method="get">
+                            <div class="custom-control custom-switch">
+                                <input name="status" value="3" type="checkbox" class="custom-control-input" id="customSwitch2" onClick="submit();">
+                                <input name="numero_pedido" value="<?php echo $_GET['numero_pedido'] ?>" type="text" class="custom-control-input">
+                                <label class="custom-control-label" for="customSwitch2">Pendente</label>
+                            </div>
+                        </form>
+                    <?php } ?>
+                    <?php if ($value['descricao'] != 'REALIZADO') { ?>
+                        <button class="btn btn-sm mt-5 btn-danger shadow-sm rounded-pill" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash-o "></i> Excluir pedido</button>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
+
+
+
+
+        <div class="row p-2 m-2 rounded shadow-sm">
+            <h5><i class="fa fa-shopping-cart"></i> Produtos</h5>
+            <table id="tabela" class="table table-sm table-responsive-sm">
+                <thead class="text-info">
+                    <tr>
+                        <th>Códido do Produto</th>
+                        <th>Descrição do Produto</th>
+                        <th>Valor</th>
+                        <th>Qtd.</th>
+                        <th>Total R$</th>
+                    </tr>
+                    <?php foreach ($this->view->produtos_pedido as $key => $value) { ?>
+                        <tr>
+                            <td><?php echo $value['codigo_produto'] ?></td>
+                            <td><?php echo $value['descricao_produto'] ?></td>
+                            <td class="text-center">
+                                <?php
+                                $valor_un = str_replace(".", ",",  $value['valor_un']);
+                                if (strlen($valor_un) < 7) {
+                                    echo $valor_un;
+                                } else if (strlen($valor_un) <= 9) {
+                                    echo substr_replace($valor_un, '.', -6, 0);
+                                } else if (strlen($valor_un) > 9) {
+                                    $val_un = substr_replace($valor_un, '.', -6, 0);
+                                    echo substr_replace($val_un, '.', -10, 0);
+                                }
+                                ?>
+                            </td>
+                            <td class="text-center"><?php echo $value['qtd_produto'] ?></td>
+                            <td class="text-center">
+                                <?php
+                                $valor_total = str_replace(".", ",",  $value['valor_total']);
+                                if (strlen($valor_total) < 7) {
+                                    echo $valor_total;
+                                } else if (strlen($valor_total) <= 9) {
+                                    echo substr_replace($valor_total, '.', -6, 0);
+                                } else if (strlen($valor_total) > 9) {
+                                    $val_total = substr_replace($valor_total, '.', -6, 0);
+                                    echo substr_replace($val_total, '.', -10, 0);
+                                }
+                                ?>
+                            </td>
+
+                        </tr>
+                    <?php } ?>
+                    <tr>
+                        <td colspan="5" class="text-right">
+                            <?php foreach ($this->view->detalhePedido as $key => $value) { ?>
+                                <h6><b>Valor Total:</b><b> R$
+                                        <?php
+                                        $valor = str_replace(".", ",",  $value['valor']);
+                                        if (strlen($valor) < 7) {
+                                            echo $valor;
+                                        } else if (strlen($valor) <= 9) {
+                                            echo substr_replace($valor, '.', -6, 0);
+                                        } else if (strlen($valor) > 9) {
+                                            $valor_tot = substr_replace($valor, '.', -6, 0);
+                                            echo substr_replace($valor_tot, '.', -10, 0);
+                                        }
+                                        ?>
+                                    </b></h6>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+
+        <h4 class="m-4"><i class="fa fa-shopping-cart"></i> Lista de Compras</h4>
+        <hr />
+        <div class="m-3 text-dark">
+            <?php foreach ($this->view->detalhePedido as $key => $value) { ?>
+                <?php echo $value['detalhe_pedido'] ?>
+            <?php } ?>
+        </div>
+        <hr />
+
+        <!-- /.row -->
+
+        <!-- this row will not appear when printing -->
+        <div class="row no-print m-1 float-right">
+            <button class="btn btn-sm btn-outline-dark shadow-sm rounded-pill" onclick="window.print()"><i class="fa fa-print"></i> Imprimir</button>
+            <a class="btn btn-sm btn-outline-info shadow-sm rounded-pill ml-2" href="/listar_pedidos"> Voltar</a>
+        </div>
+        </section>
+
+    </div>
+
+
+
+
+
+    <!-- page content -->
+
+
+    <!-- Modal Atualiza Valor -->
+    <form action="/atualiza_valor_pedido" method="get">
+        <div class="modal fade" id="atualizar" tabindex="-1" aria-labelledby="label" aria-hidden="true">
+            <div class="modal-dialog modals-default">
+                <div class="modal-content text-center">
+                    <div class="modal-header">
+                        <div class="modal-title text-info text-center" id="label"><b>Atualizar Valor Pedido</b></div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-info">
+                        <label for="validationCustom01">Valor R$</label>
+                        <input name="valor" value="" type=" text" class="form-control form-control-sm shadow-sm rounded-pill" placeholder="R$" required>
+                        <input name="numero_pedido" value="<?php echo $_GET['numero_pedido'] ?>" type="text" class="custom-control-input">
+
+                    </div>
+                    <div class="modal-footer mt-3">
+                        <button type="submit" class="btn btn-sm btn-success shadow-sm rounded-pill">Salvar</button>
+                        <button type="button" class="btn btn-sm btn-secondary shadow-sm rounded-pill" data-dismiss="modal">Sair</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Modal Excluir -->
+    <form action="/excluir_pedido" method="post">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modals-default">
+                <div class="modal-content text-center">
+                    <div class="modal-header">
+                        <div class="modal-title fa fa-warning" id="exampleModalLabel">
+                            <h4>Atenção</h4>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><b>Deseja realmente excluir o pedido?</b></p>
+                        <input name="numero_pedido" value="<?php echo $_GET['numero_pedido'] ?>" type="text" class="custom-control-input shadow-sm rounded-pill">
+                    </div>
+                    <div class="modal-footer mt-3">
+                        <button type="submit" class="btn btn-sm btn-success shadow-sm rounded-pill">Sim</button>
+                        <button type="button" class="btn btn-sm btn-secondary shadow-sm rounded-pill" data-dismiss="modal">Não</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Modal Atualiza Loja -->
+    <form action="/atualiza_loja_pedido" method="get">
+        <div class="modal fade" id="atualizar_loja" tabindex="-1" aria-labelledby="label" aria-hidden="true">
+            <div class="modal-dialog modals-default">
+                <div class="modal-content text-center">
+                    <div class="modal-header ">
+                        <div class="modal-title text-info text-center" id="label"><b>Alterar loja pedido</b></div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body text-info">
+                        <label>Lojas</label>
+                        <select name="id_loja" class="custom-select custom-select-sm rounded-pill" required>
+                            <option selected value="">...</option>
+                            <?php foreach ($this->view->lojas as $key => $value) { ?>
+                                <option value="<?php echo $value['id_loja'] ?>"><?php echo $value['local'] ?></option>
+                            <?php } ?>
+                        </select>
+                        <input name="numero_pedido" value="<?php echo $_GET['numero_pedido'] ?>" type="text" class="custom-control-input">
+                    </div>
+                    <div class="modal-footer mt-3">
+                        <button type="submit" class=" btn btn-sm btn-success shadow">Salvar</button>
+                        <button type="button" class="btn btn-sm btn-secondary shadow" data-dismiss="modal">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!-- Modal forma de Pagamento -->
+    <form action="/inserir_forma_pagamnto" method="get">
+        <div class="modal fade" id="forma_pagamento" tabindex="-1" aria-labelledby="label" aria-hidden="true">
+            <div class="modal-dialog modals-default">
+                <div class="modal-content text-center">
+                    <div class="modal-header ">
+                        <div class="modal-title text-info text-center" id="label"><b>Forma de Pagamento</b></div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body text-info">
+                        <label>Escolha a forma de Pagamento</label>
+                        <select name="forma_pagamento" class="custom-select custom-select-sm rounded-pill" required>
+                            <option selected value="">...</option>
+                            <?php foreach ($this->view->forma_pagamento as $key => $value) { ?>
+                                <option value="<?php echo $value['cod_forma_pagamento'] ?>"><?php echo $value['descricao_forma_pagamento'] ?></option>
+                            <?php } ?>
+                        </select>
+                        <input name="numero_pedido" value="<?php echo $_GET['numero_pedido'] ?>" type="text" class="custom-control-input">
+                    </div>
+                    <div class="modal-footer mt-3">
+                        <button type="submit" class=" btn btn-sm btn-success shadow">Salvar</button>
+                        <button type="button" class="btn btn-sm btn-secondary shadow" data-dismiss="modal">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!-- Modal Alterar Data -->
+    <form action="/alterar_data" method="get">
+        <div class="modal fade" id="alterar_data" tabindex="-1" aria-labelledby="label" aria-hidden="true">
+            <div class="modal-dialog modals-default">
+                <div class="modal-content text-center">
+                    <div class="modal-header ">
+                        <div class="modal-title text-info text-center" id="label"><b></b></div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body text-info">
+                        <label>Escolha a Data desejada.</label>
+                        <input name="data" value="" type="date" class="form-control form-control-sm rounded-pill" required>
+                        <input name="numero_pedido" value="<?php echo $_GET['numero_pedido'] ?>" type="text" class="form-control" hidden>
+                    </div>
+                    <div class="modal-footer mt-3">
+                        <button type="submit" class=" btn btn-sm btn-success shadow">Salvar</button>
+                        <button type="button" class="btn btn-sm btn-secondary shadow" data-dismiss="modal">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>

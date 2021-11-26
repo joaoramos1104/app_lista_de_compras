@@ -1,0 +1,41 @@
+   <ol class="breadcrumb mb-2 mt-2">
+       <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+       <li class="breadcrumb-item active">Lojas</li>
+   </ol>
+
+   <div class="card shadow bg-white">
+       <div class="data-table-area shadow-sm">
+           <div class="data-table-list bg-light rounded">
+               <div class="table-responsive">
+
+                   <table class="bg-light table table-sm table-responsive-sm table-hover rounded" id="data-table-basic">
+                       <thead class="">
+                           <tr class="">
+                               <th scope="col">Razão Social</th>
+                               <th scope="col">CNPJ</th>
+                               <th scope="col">Local</th>
+                               <th scope="col">Sequência Loja</th>
+                               <th scope="col">Ação</th>
+                           </tr>
+                       </thead>
+
+
+                       <tbody>
+                           <?php foreach ($this->view->loja as $key => $value) { ?>
+
+                               <tr>
+                                   <td style="text-transform: uppercase;"><?php echo $value['nome_loja'] ?></td>
+                                   <td><?php echo $value['cnpj'] ?></td>
+                                   <td style="text-transform: uppercase;"><?php echo $value['local'] ?></td>
+                                   <td><?php echo $value['sequencia'] ?></td>
+                                   <td>
+                                       <a href="/atualiza_loja?id=<?php echo $value['id'] ?>" class=" btn btn-blue btn-sm shadow-sm rounded-pill" data-toggle="tooltip" data-placement="top" title="Editar Dados da Loja"><i class="fa fa-edit"></i> Editar</a>
+                                   </td>
+                               </tr>
+                           <?php } ?>
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+       </div>
+   </div>

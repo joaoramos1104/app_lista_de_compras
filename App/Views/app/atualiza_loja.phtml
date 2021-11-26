@@ -1,0 +1,89 @@
+    <ol class="breadcrumb mb-2 mt-2">
+        <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="/lojas">Lojas</a></li>
+        <li class="breadcrumb-item active">Atualizar Loja</li>
+    </ol>
+
+    <div class="card shadow bg-white">
+        <div class="card-header text-info">
+            <h4>Atualizar Loja</h4>
+        </div>
+        <div class="card-body">
+            <form method="get" action="/salvar_loja">
+                <div class="form-row">
+                    <div class="col-md-5 mb-3">
+                        <label for="validationCustom01">Razão Social</label>
+                        <input name="nome_loja" value="<?php echo $this->view->get_loja[0]['nome_loja'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" required>
+                        <input name="id" value="<?php echo $_GET['id'] ?>" type="text" class="form-control form-control-sm" hidden>
+                        <div class="valid-feedback">
+                            Tudo certo!
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom03">CNPJ</label>
+                        <input name="cnpj" value="<?php echo $this->view->get_loja[0]['cnpj'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" required>
+                        <div class="valid-feedback">
+                            Tudo certo!
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom02">Local</label>
+                        <input name="local" value="<?php echo $this->view->get_loja[0]['local'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm">
+                        <div class="valid-feedback">
+                            Tudo certo!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom04">Sequência Loja</label>
+                        <input name="sequencia" value="<?php echo $this->view->get_loja[0]['sequencia'] ?>" type="number" class="form-control form-control-sm rounded-pill shadow-sm" required>
+                        <div class="valid-feedback">
+                            Tudo certo!
+                        </div>
+                    </div>
+                </div>
+                <div class="container col-md-12 col-sm-12">
+                    <div class="row form-group">
+                        <div class="col-sm-2">
+                            <label class="form-check-label" for="invalidCheck">CEP</label>
+                            <input name="cep" value="<?php echo $this->view->get_loja[0]['cep'] ?>" type=" number" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="CEP" onblur="getDadosEnderecoPorCEP(this.value)" required />
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-check-label" for="invalidCheck">Logradouro</label>
+                            <input name="rua" value="<?php echo $this->view->get_loja[0]['rua'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Logradouro" id="endereco" required />
+                        </div>
+                        <div class="col-sm-5">
+                            <label class="form-check-label" for="invalidCheck">Referência</label>
+                            <input name="referencia" value="<?php echo $this->view->get_loja[0]['referencia'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Referecia" id="endereco" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label class="form-check-label" for="invalidCheck">Nº</label>
+                            <input name="numero" value="<?php echo $this->view->get_loja[0]['numero'] ?>" type=" number" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Nº 99999" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            <label class="form-check-label" for="invalidCheck">Bairro</label>
+                            <input name="bairro" value="<?php echo $this->view->get_loja[0]['bairro'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Bairro" id="bairro" required />
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-check-label" for="invalidCheck">Cidade</label>
+                            <input name="cidade" value="<?php echo $this->view->get_loja[0]['cidade'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Cidade" id="cidade" />
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label class="form-check-label" for="invalidCheck">Estado</label>
+                            <input name="uf" value="<?php echo $this->view->get_loja[0]['uf'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="UF" id="uf" />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            <div class="row float-right">
+                <a href="/lojas" type="button" class="btn btn-sm btn-outline-secondary rounded-pill shadow-sm float-right">Voltar</a>
+                <button type="submit" class="btn btn-sm btn-success ml-2 rounded-pill shadow-sm float-right"><i class="fa fa-check"></i> Salvar</button>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,153 @@
+     <ol class="breadcrumb mb-2 mt-2">
+         <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+         <li class="breadcrumb-item"><a href="/usuarios">Usuários</a></li>
+         <li class="breadcrumb-item active">Pefil Usuário</li>
+     </ol>
+
+     <div class="card shadow">
+         <div class="card-header">
+             <h4 class="brief"><i>Perfil do Usuário</i></h4>
+         </div>
+         <div class="card-body">
+             <div class="col-md-12 col-sm-12  profile_details">
+                 <div class="well col-md-12 col-sm-12 profile_view">
+                     <?php foreach ($this->view->perfil as $key => $value) { ?>
+                         <div class="col-sm-12">
+
+                             <div class="left col-md-7 col-sm-7">
+                                 <h2>Nome: <?= $value['nome'] ?></h2>
+                                 <p><strong class="fa fa-envelope"> E-mail: </strong> <?= $value['email'] ?> </p>
+                                 <ul class=" list-unstyled">
+                                     <li><i class="fa fa-user"> </i> Login: <?php echo $value['login'] ?> </li>
+                                     <li><i class="fa fa-desktop"> </i> Tipo Usuário: <?php echo $value['descricao'] ?> </li>
+                                     <li><i class="fa fa-shopping-cart"> </i> Loja: <?php echo $value['loja'] ?> </li>
+                                 </ul>
+                             </div>
+                             <div class="right col-md-5 col-sm-5 text-center">
+                                 <img src="<?php echo $value['img'] ?>" alt="" class="img-circle img-fluid">
+                             </div>
+                         </div>
+                         <div class=" profile-bottom text-center">
+                             <div class=" col-sm-12 emphasis">
+                                 <button class="btn btn-sm btn-blue shadow-sm rounded-pill" data-toggle="modal" data-target="#atualizar"><i class="fa fa-lock"> </i> Mudar Senha</button>
+                                 <button class="btn btn-sm btn-info shadow-sm rounded-pill" data-toggle="modal" data-target="#atualizar_loja_usuario"><i class="fa fa-shopping-cart"> </i> Mudar Loja</button>
+                                 <button class="btn btn-sm btn-primary shadow-sm rounded-pill" data-toggle="modal" data-target="#exampleModal">
+                                     <i class="fa fa-user"> </i> Editar Perfil
+                                 </button>
+                             </div>
+                         </div>
+                     <?php } ?>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+     <!-- Modal -->
+     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-xl modals-default">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <h5 class="modal-title text-info" id="exampleModalLabel"> Atualizar Dados do Usuário</h5>
+                     <h5 class=" text-info glyphicon glyphicon-pencil ml-5"></h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                 </div>
+                 <div class="modal-body">
+                     <form method="post" action="/atualizar_perfil">
+                         <div class="form-row">
+                             <div class="col-md-4 mb-4">
+                                 <label for="validationDefault01">Nome </label>
+                                 <input type="text" name="nome" value="<?php echo $this->view->perfil[0]['nome'] ?>" class="form-control form-control-sm shadow-sm rounded-pill" id="validationDefault01" placeholder="Nome" required>
+                                 <input type="hidden" name="id" value="<?php echo $this->view->perfil[0]['id'] ?>" class="form-control form-control-sm shadow-sm rounded-pill" required>
+                             </div>
+                             <div class="col-md-4 mb-4">
+                                 <label for="validationDefault02">Login</label>
+                                 <input type="text" name="login" value="<?php echo $this->view->perfil[0]['login'] ?>" class="form-control form-control-sm shadow-sm rounded-pill" id="validationDefault02" placeholder="Usuário" required>
+                             </div>
+                             <div class="col-md-4 mb-4">
+                                 <label for="validationDefault04">Tipo</label>
+                                 <select name="id_tipo" class="custom-select custom-select-sm shadow-sm rounded-pill" required>
+                                     <option selected value="<?php echo $this->view->perfil[0]['id_tipo'] ?>">...</option>
+                                     <?php foreach ($this->view->tipo_user as $key => $value) { ?>
+                                         <option value="<?php echo $value['id'] ?>"><?= $value['descricao'] ?></option>
+                                     <?php } ?>
+                                 </select>
+                             </div>
+                         </div>
+                         <div class="form-row">
+                             <div class="col-md-12 mb-12">
+                                 <label for="validationDefaultUsername">E-mail</label>
+                                 <div class="input-group input-group-sm">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                     </div>
+                                     <input type="text" name="email" value="<?php echo $this->view->perfil[0]['email'] ?>" class="form-control form-control-sm shadow-sm rounded-pill" id="validationDefaultUsername" placeholder="E-mail" aria-describedby="inputGroupPrepend2" required>
+                                 </div>
+                             </div>
+                         </div>
+                 </div>
+                 <div class="modal-footer mt-3">
+                     <button type="button" class="btn btn-sm btn-outline-secondary shadow-sm rounded-pill" data-dismiss="modal">Sair sem Salvar</button>
+                     <button type="submit" class="btn btn-sm btn-outline-success shadow-sm rounded-pill">Salvar</button>
+                 </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+
+
+
+     <!-- Modal Atualiza senha -->
+     <form action="/atualizar_senha" method="post">
+         <div class="modal fade" id="atualizar" tabindex="-1" aria-labelledby="label" aria-hidden="true">
+             <div class="modal-dialog modals-default">
+                 <div class="modal-content text-center">
+                     <div class="modal-header ">
+                         <div class="modal-title text-info text-center" id="label"><b>Redefinir Senha</b></div>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
+                     <div class="modal-body text-info">
+                         <label for="validationCustom01">Nova Senha</label>
+                         <input name="senha" value="" type="password" class="form-control form-control-sm shadow-sm rounded-pill" placeholder="Nova senha" required>
+                         <input name="id" value="<?php echo $_GET['id'] ?>" type="text" class="custom-control-input">
+
+                     </div>
+                     <div class="modal-footer mt-3">
+                         <button type="submit" class="btn btn-sm btn-primary shadow-sm rounded-pill">Salvar Senha</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </form>
+
+     <!-- Modal Atualiza Loja -->
+     <form action="/atualizar_loja_usuario" method="post">
+         <div class="modal fade" id="atualizar_loja_usuario" tabindex="-1" aria-labelledby="label" aria-hidden="true">
+             <div class="modal-dialog modals-default">
+                 <div class="modal-content text-center">
+                     <div class="modal-header ">
+                         <div class="modal-title text-info text-center" id="label"><b>Alterar loja Usuário</b></div>
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     </div>
+                     <div class="modal-body text-info">
+                         <label>Lojas</label>
+                         <select name="id_loja" class="custom-select custom-select-sm" required>
+                             <option selected value="">...</option>
+                             <?php foreach ($this->view->lojas as $key => $value) { ?>
+                                 <option value="<?php echo $value['id_loja'] ?>"><?php echo $value['local'] ?></option>
+                             <?php } ?>
+                         </select>
+                         <input name="id" value="<?php echo $_GET['id'] ?>" type="text" class="custom-control-input">
+                     </div>
+                     <div class="modal-footer mt-3">
+                         <button type="submit" class=" btn btn-sm btn-success shadow">Salvar</button>
+                         <button type="button" class="btn btn-sm btn-secondary shadow" data-dismiss="modal">Sair</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </form>

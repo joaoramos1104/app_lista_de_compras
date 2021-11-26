@@ -1,0 +1,46 @@
+
+<div class="container m-auto">
+    <div class="row">
+        <div class="col-md-6 col-sm-12 p-3 m-auto">
+            <h2>Login</h2>
+            <form method="POST" action="/autenticar">
+               
+                <div class="mb-3 mt-3">
+                    <label for="login">Usuário:</label>
+                    <input id="login" type="text" class="form-control" name="login" required autocomplete="current-login" autofocus placeholder="Usuário">
+                </div>
+                <div class="mb-3">
+                    <label for="password">Senha:</label>
+                    <input id="password" type="password" class="form-control" name="senha" required autocomplete="current-password" placeholder="Digite sua senha">
+                </div>
+                <?php if ($this->view->login == 'erro') { ?>
+                        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                        <strong>*Login ou senha inválido(s)</strong>
+                    </div>
+                    <?php } ?>
+                <button type="submit" class="btn btn-sm btn-primary">Login</button>
+            </form>
+        </div>
+        <div class="col-md-6 col-sm-12 text-center m-auto">
+            <img src="/img/img.png" alt="" class="img-fluid p-3">
+        </div>
+    </div>
+		<footer class="container p-3">
+			<div class="d-flex justify-content-center">
+				<ul class="nav social-icons ms-3">
+				<li class="nav-item m-auto text-color">
+					&copy; 2021 João F. Ramos
+				</li>
+				<li class="nav-item me-2 text-white">
+					<a class="social-icon" href="https://linkedin.com/in/joao-f-ramos-04692070" target="_blank"><i class="ti-linkedin"></i></a>
+				</li>
+				<li class="nav-item me-2">
+					<a class="social-icon" href="https://github.com/joaoramos1104" target="_blank"><i class="ti-github"></i></a>
+				</li>
+				<li class="nav-item me-2">
+					<a class="social-icon" href="https://www.instagram.com/f.ramosjoao" target="_blank"><i class="ti-instagram"></i></a>
+				</li>
+				</ul>
+			</div>
+		</footer>
+</div>

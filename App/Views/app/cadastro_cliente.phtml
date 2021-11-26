@@ -1,0 +1,141 @@
+<ol class="breadcrumb mb-2 mt-2">
+    <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/cliente">Cliente</a></li>
+    <li class="breadcrumb-item active">Cadastro Cliente</li>
+</ol>
+
+<div class="card shadow bg-white">
+    <div class="card-header bg-light">
+        <h6>Cadastro Cliente</h6>
+    </div>
+    <div class="card-body">
+        <form method="post" action="/cadastroCliente" class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    <label for="validationCustom01">Nome Completo</label>
+                    <input name="nome" value="<?php echo $this->view->cadCliente['nome'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" required>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label for="validationCustom02">E-mail</label>
+                    <input name="email" value="<?php echo $this->view->cadCliente['email'] ?>" type=" email" class="form-control form-control-sm rounded-pill shadow-sm">
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom03">CPF</label>
+                    <input name="cpf" value="<?php echo $this->view->cadCliente['cpf'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" required>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom04">Telefone</label>
+                    <input name="telefone" value="<?php echo $this->view->cadCliente['telefone'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder=" Ex: (21) 99999-9999" required>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom05">Tipo Telefone</label>
+                    <select name="tipo" class="custom-select custom-select-sm  rounded-pill shadow-sm" required>
+                        <option selected value="<?php echo $this->view->cadCliente['tipo'] ?>">...</option>
+                        <option value="CEL">Celular</option>
+                        <option value="RES">Residencial</option>
+                        <option value="COM">Comercial</option>
+                    </select>
+                </div>
+
+
+
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom06">Loja</label>
+                    <select name="id_loja" class="custom-select custom-select-sm rounded-pill shadow-sm" required>
+                        <option selected value="">...</option>
+                        <?php foreach ($this->view->lojas as $key => $value) { ?>
+                            <option value="<?php echo $value['id_loja'] ?>"><?php echo $value['local'] ?></option>
+                        <?php } ?>
+                    </select>
+
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+            </div>
+
+            <div class="">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label class="form-check-label" for="invalidCheck">CEP</label>
+                        <input name="cep" value="<?php echo $this->view->cadCliente['cep'] ?>" type=" number" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="CEP" onblur="getDadosEnderecoPorCEP(this.value)" required />
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="form-check-label" for="invalidCheck">Logradouro</label>
+                        <input name="rua" value="<?php echo $this->view->cadCliente['rua'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Logradouro" id="endereco" required />
+                    </div>
+                    <div class="col-sm-5">
+                        <label class="form-check-label" for="invalidCheck">Referência</label>
+                        <input name="referencia" value="<?php echo $this->view->cadCliente['referencia'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Referecia" id="endereco" />
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="form-check-label" for="invalidCheck">Nº</label>
+                        <input name="numero" value="<?php echo $this->view->cadCliente['numero'] ?>" type=" number" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Nº 99999" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label class="form-check-label" for="invalidCheck">Bairro</label>
+                        <input name="bairro" value="<?php echo $this->view->cadCliente['bairro'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Bairro" id="bairro" required />
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="form-check-label" for="invalidCheck">Cidade</label>
+                        <input name="cidade" value="<?php echo $this->view->cadCliente['cidade'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="Cidade" id="cidade" />
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label class="form-check-label" for="invalidCheck">Estado</label>
+                        <input name="uf" value="<?php echo $this->view->cadCliente['uf'] ?>" type=" text" class="form-control form-control-sm rounded-pill shadow-sm" placeholder="UF" id="uf" />
+                    </div>
+                </div>
+            </div>
+            <a href="/cliente"><button class="btn btn-custom btn-sm btn-secondary rounded-pill shadow-sm float-right m-1" type="button" data-toggle="modal" data-target="#staticBackdrop">Voltar</button></a>
+            <button class="btn btn-custom btn-sm btn-success rounded-pill shadow-sm float-right m-1" type="submit" data-toggle="modal" data-target="#staticBackdrop">Salvar</button>
+        </form>
+    </div>
+</div>
+
+
+<?php if ($this->view->erroCadastro) { ?>
+    <!-- Modal -->
+    <div class="modal fade " id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content text-center alert-danger">
+                <div class="modal-header">
+                    <h5 class="modal-title glyphicon glyphicon-warning-sign" id="staticBackdropLabel"> Atenção</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <strong> Erro ao realizar cadastro!</strong>
+                    <p> CPF (Cliente) já cadastrado no sistema ou dados inconsistenste.</p>
+                    <p>Verifique os dados informados e tente novamente!</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //modal
+
+        $(document).ready(function() {
+            $("#myModal").modal();
+        });
+    </script>
+<?php } ?>
